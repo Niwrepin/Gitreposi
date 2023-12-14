@@ -2,8 +2,8 @@ from tabulate import tabulate
 
 class Table:
     def __init__(self):
-        self.columns = ["Марка","Модель","Год выпуска","Об. мотора(л)","Тип мотора","Номер",\
-    "Привод","Мощность (л.с.)","Двери (шт)","Пробег (км)","Цвет","На парковке?"]
+        self.columns = ["Марка", "Модель","Год выпуска", "Об. мотора(л)", "Тип мотора", "Номер",
+    "Привод", "Мощность (л.с.)", "Двери (шт)", "Пробег (км)", "Цвет", "На парковке?", "Объем багажника", "Тип кузова", "Расход топлива (л/100км)"]
         self.table = []
 
     def load_table(self, file_name="tms", extension=".txt"):
@@ -140,7 +140,35 @@ class Features(Table):
                         else:
                             print("Пробег не может быть орицателен, или быть больше 4.8млн.(км) ")
                     except ValueError:
-                        print("Пробег должен быть ТОЛЬКО числом")    
+                        print("Пробег должен быть ТОЛЬКО числом")
+            elif column == "Объем багажника":
+                while True:
+                    bagage = input("Введите объем багажника: ")
+                    try:
+                        if 0 <= int(bagage) <= 5000:
+                            new_row[column] = bagage
+                            break
+                        else:
+                            print("Объем багажника не может быть отрицательным или больше 5000 литров ")
+                    except ValueError:
+                        print("Объем может быть ТОЛЬКО числом")
+            elif column == "Тип кузова":
+                while True:
+                    tip_kuzova = input("Введите тип Кузова: ").upper()
+                    if tip_kuzova:
+                        new_row[column] = tip_kuzova
+                        break
+            elif column == "Расход топлива (л/100км)":
+                while True:
+                    rasxod = input("Введите расход топлива: ")
+                    try:
+                        if 0 <= int(rasxod) <= 117:
+                            new_row[column] = rasxod
+                            break
+                        else:
+                            print("Расход топлива не может быть отрицательным ")
+                    except ValueError:
+                        print("Расход топлива может быть ТОЛЬКО числом")
             else:
                 value = input(f"Введите {column}: ").upper()
                 new_row[column] = value
